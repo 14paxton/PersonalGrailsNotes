@@ -1,0 +1,2 @@
+# PersonalGrailsNotes
+grails tidbits
