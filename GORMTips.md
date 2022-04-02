@@ -1,6 +1,14 @@
 ## Altering fetch
   // Using a dynamic finder
   Author.findAllByNameLike("John%", [ sort: 'name', order: 'asc', fetch: [location: 'join'] ])
+  
+  
+    import org.hibernate.FetchMode as FM
+
+    def results = Airport.withCriteria {
+    eq "region", "EMEA"
+    fetchMode "flights", FM.SELECT
+}
 
 ## More Advanced Subqueries in GORM
    The support for subqueries has been extended. You can now use in with nested subqueries
