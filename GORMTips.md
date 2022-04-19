@@ -46,3 +46,20 @@
     }.id()
    }
     def results = query.list()
+
+
+## ARGS Map , list of args that can be passed i.e.  findall([sort: ), count(), ect
+     public static final String ARGUMENT_FETCH_SIZE = "fetchSize";
+     public static final String ARGUMENT_TIMEOUT = "timeout";
+     public static final String ARGUMENT_READ_ONLY = "readOnly";
+     public static final String ARGUMENT_FLUSH_MODE = "flushMode";
+     public static final String ARGUMENT_MAX = "max";
+     public static final String ARGUMENT_OFFSET = "offset";
+     public static final String ARGUMENT_ORDER = "order";
+     public static final String ARGUMENT_SORT = "sort";
+     public static final String ORDER_DESC = "desc";
+     public static final String ORDER_ASC = "asc";
+     public static final String ARGUMENT_FETCH = "fetch";
+     public static final String ARGUMENT_IGNORE_CASE = "ignoreCase";
+     public static final String ARGUMENT_CACHE = "cache";
+     public static final String ARGUMENT_LOCK = "lock";
