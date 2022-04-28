@@ -1,3 +1,3 @@
 ## Batch Save and Delete
-<a href="https://gist.github.com/14paxton/b7f8be4d37b29eb2d25e1a2e993f5bf4"> save </a> ..... 
-<a herf="https://gist.github.com/14paxton/74672cad5253c56c36efc6473078de34"> delete </a>
+<a href="https://gist.github.com/14paxton/b7f8be4d37b29eb2d25e1a2e993f5bf4"> save </a> 
+<a href="https://gist.github.com/14paxton/74672cad5253c56c36efc6473078de34"> delete </a>
