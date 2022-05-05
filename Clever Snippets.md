@@ -13,3 +13,6 @@ https://gist.github.com/14paxton/e72c14086f5d9a6a0c58dc8463b93561
 
 ## String search with regex
 https://gist.github.com/14paxton/a5382dd3898484bf560dc29e8463409c
+
+## User Grails Param map and a closure to build HQL
+https://gist.github.com/14paxton/42e595a1bf50e44031b6be6c034003d9
