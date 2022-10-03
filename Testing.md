@@ -101,306 +101,65 @@ Different ways to build
 
        def z = build(InterviewModel, source: Source.TBSIX)
  
-
-#  Grails with React app
-
- 
-
- ./gradlew server:bootRun
-
- ./gradlew client:start
-
-   
-
-./gradlew bootRun -parallel
-
- 
-
-#  ASYNC
-
- def resendRegistrationEmailAndLockUserAccount(def userList) {
-
-        def emailsSent = []
-
-        def emailsNotSent = []
-
-        def nThreads = Runtime.getRuntime().availableProcessors()
-
-        def size = (userList.size() / nThreads).intValue()
-
-        def promises = []
-
-
-        withPool nThreads, {
-
-            userList.collate(size).each { subList ->
-
-                def promise = task {
-
-                    subList.each {userInstance ->
-
-                        User.withTransaction {
-
-                            def auth0Response = sendRegistrationEmail(userInstance)
-
-
-                            if (auth0Response.type == "success")
-
-                            {
-
-                                emailsSent << userInstance.email
-
-                                userInstance.inAdminResetProcess = true
-
-                                userInstance.save(flush: true)
-
-                                userInstance.setActive(true)
-
-                            }
-
-                            else
-
-                            {
-
-                                emailsNotSent << userInstance.email
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                promises.add(promise)
-
-            }
-
-            waitAll(promises)
-
-        }
-
-
-        return ["emailsSent" : emailsSent, "emailsNotSent" : emailsNotSent]
-
-    }
-
- 
-
- 
-
-# JSON to javascript
-
-var catalogsByType = null;
-<g:applyCodec encodeAs="none">
-    catalogsByType = ${resultCatalogs.catalogsByType as grails.converters.JSON};
-</g:applyCodec>
-
- 
-
-<script>
-
-    var data = ${raw(data)};
-
-</script>
-
- 
-
-# Using messageSource
-
-     [i18n Docs](https://docs.grails.org/4.0.1/guide/i18n.html)
-
- messageSource.getMessage('batch.user.registration.confirmation.message', [jobId as String].toArray() , LocaleContextHolder.locale)
-
-
-# JSON Parser EX
-
-def json = '''{
-
-                  "markings": {
-
-                      "headMarkings": "Brindle",
-
-                      "leftForeMarkings": "",
-
-                      "rightForeMarkings": "sock",
-
-                      "leftHindMarkings": "sock",
-
-                      "rightHindMarkings": "",
-
-                      "otherMarkings": ""
-
-                   }
-
-                }'''
-
- 
-
-def jsonObj = grails.converters.JSON.parse(json)
-
-//This is your JSON object that should be passed in to the method
-
-print jsonObj //[markings:[rightForeMarkings:sock, otherMarkings:, leftForeMarkings:, leftHindMarkings:sock, rightHindMarkings:, headMarkings:Brindle]]
-
- 
-
-def jsonStr = jsonObj.toString()
-
-//This is the string which should be persisted in db
-
-assert jsonStr == '{"markings":{"rightForeMarkings":"sock","otherMarkings":"","leftForeMarkings":"","leftHindMarkings":"sock","rightHindMarkings":"","headMarkings":"Brindle"}}'
-
- 
-
-//Get back json obj from json str
-
-def getBackJsobObj = grails.converters.JSON.parse(jsonStr)
-
-assert getBackJsobObj.markings.leftHindMarkings == 'sock'
-
- 
-
-# adding plugins in multi project build
-
-[My Example](https://github.com/14paxton/Grails4App/blob/task2-create-react-app/app-web/settings.gradle)
-
-1. add to settings.gradle
-
-`      include 'client', 'server'`
-      `rootProject.name = 'app-web'`
-      `include ':mod-domain', ":mod-mobile"``
-      `project(':mod-domain').projectDir = new File(settingsDir, '../mod-domain')`
-      `project(':mod-mobile').projectDir = new File(settingsDir, '../mod-mobile')`
-
-2. add to build.gradle
-
-    grails {
-    plugins {
-        compile project(":mod-domain")
-        compile project(":mod-mobile")
-    }
-    }
-    compile project(':mod-domain')
-
-# Tidbit
-## Render grails tags to return in controller
-
-        render  g.select(from: languages, optionKey: "key" , optionValue: "value",  name: "languageChoice",
+ </pre></td></tr></table></td></tr></tbody></table><h2>GRAILS/GORM</h2><table data-layout="default" ac:local-id="6692d35e-ea57-4f1e-980d-ce4d8bc2c17c" class="confluenceTable"><colgroup><col style="width: 115.0px;" /><col style="width: 645.0px;" /></colgroup><tbody><tr><th data-highlight-colour="#57d9a3" class="confluenceTh"><p><strong>Render grails tags to return</strong></p></th><th class="confluenceTh"><ol><li><p>render a tag or html, can be returned through an async/ajax call and added to div or html on page</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="adb9433a-bd4f-497e-a3cb-bc47947194c1" data-macro-parameters="language=groovy" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGU6bGFuZ3VhZ2U9Z3Jvb3Z5fQ&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>	render  g.select(from: languages, optionKey: "key" , optionValue: "value",  name: "languageChoice",
         class:"form-control", value: assessmentLanguage)
+</pre></td></tr></table><p /></li></ol></li><li><p>save a tag in a variable and render it on page</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="81f77ebe-19e3-4b9d-ba59-002edc7ddda0" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>${yourTag.encodeAsRaw()}
+ ${raw(user.description)}
+</pre></td></tr></table></li></ol></li></ol></th></tr><tr><th data-highlight-colour="#57d9a3" class="confluenceTh"><p><strong>Testing(Mocking )</strong></p></th><td class="confluenceTd"><ol><li><p>Mock return value for service method used in the service you are testing</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="0d8267c1-04ba-4d0b-be60-e2234edb65c8" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>service.springSecurityService = [authentication: [details: currentUser] ]</pre></td></tr></table></li></ol></li><li><p>Mock a static method call from a domain</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="32aa0d3a-006e-4c19-a745-0072ea0d64a2" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>ClientSetup.metaClass.static.fetchSecurityGroupLabelsByClientSetupId = {Long id, String en -> [secGroupNameLabel : 'secGroupNameLabel', secGroupCodeLabel : 'secGroupCodeLabel']}</pre></td></tr></table><p /></li></ol></li></ol></td></tr><tr><th data-highlight-colour="#57d9a3" class="confluenceTh"><p><strong>Tesing</strong></p></th><td class="confluenceTd"><ol><li><p>Checking validity of constraints</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="223083e8-bbe8-49fe-a938-16fedba60695" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>!newScheduledInterview2.validate(['scheduledBy', 'scheduledDate'])
+!newScheduledInterview2.save(flush: true)
+newScheduledInterview2.errors['scheduledDate']?.code == 'unique'
+</pre></td></tr></table><p /></li></ol></li><li><p>check if method was called for another service</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="e1922e4d-60c2-43b1-93a7-4b247b587ea7" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>def called = false
+service.notifierService = Mock(NotifierService)
+service.notifierService.sendPostMarkEmail(_ as PostMarkEmail, _) >> { it -> called = true }</pre></td></tr></table><p /></li></ol></li><li><p>check if method was called for same service</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="203a7c9e-f6e1-4a88-a974-8a8714e07fa9" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>service.metaClass.sendReminderEmail = { assessmentOrderId, templateId, sender, newTemplateBody, jobId-> calls++ }</pre></td></tr></table><p /></li></ol></li><li><p>create an exception </p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="c770512d-1702-44a3-8bec-2306a4c0e93e" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>//create expando
+def testDelete = new Expando()
 
-## save grails tag in variable and render on page 
-    `${yourTag.encodeAsRaw()}`
+// add exception to method call
+def exception = {new Exception("TEST")}
 
- or `${raw(user.description)}`
+testDelete.delete = {throw exception}
 
+// add class as return for a method
+service.metaClass.[method_to_throw_exception] = {testDelete}</pre></td></tr></table><p /></li><li><p>- example in CalenderServiceSpec.groovy / “test delete exception”</p><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="7df49720-85db-4ff1-85fc-e419670f760c" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>//or
+service.metaClass.[yourMethod] >> {throw exception}</pre></td></tr></table><p /></li></ol></li><li><p>catch exception</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="3d395048-d951-4a39-bbd1-cc316c60d341" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>def response = thrown(GraphServiceException)</pre></td></tr></table><p /></li></ol></li><li><p>modify config during/for test</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="a139584e-15e4-4694-ad73-6fed76f35731" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>Holders.grailsApplication.config.outlook.clientId = "GUUNAR5"</pre></td></tr></table><p /></li></ol></li><li><p>create a custom manager for a test</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="1e9e20ab-13c6-49ab-b4c4-645664cce8e1" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>def managerMap = [:]
+
+RoleGroup.findAll().each {
+    def myUser = User.build(clientSetupId: 1, email: "${it.name}@mailinator.com", username: "${it.name}@mailinator.com")
+    UserRoleGroup.build(user: myUser, roleGroup: it)
+    def tokenAuthentication = new TokenAuthentication(decodedJwt(myUser), myUser)
+    tokenAuthentication.details = myUser
+    authMap[(it.name)] = tokenAuthentication
+    managerMap[(myUser.id)] = it.name ==~ /testManager.*/ ? [1,2,3] : []
+}
+
+service.userService = Mock(UserService)
+service.userService.fetchDirectReportIds(_) >> {it -> 
+    managerMap.get(it[0])
+}
+</pre></td></tr></table><p /></li></ol></li><li><p>Mocking hibernate used to test methods using where queriers / detached criteria / criteria builder</p><ol><li><p /><table class="wysiwyg-macro" data-macro-name="code" data-macro-id="c7095e9d-dd5f-4f4b-b6c6-8806ab118c66" data-macro-schema-version="1" style="background-image: url(https://talentplus.atlassian.net/wiki/plugins/servlet/confluence/placeholder/macro-heading?definition=e2NvZGV9&amp;locale=en_US&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT"><tr><td class="wysiwyg-macro-body"><pre>@Shared
+InterviewModelService interviewModelService
+
+@Shared
+HibernateDatastore hibernateDatastore
+
+@Shared
+PlatformTransactionManager transactionManager
+
+Map configuration = [
+        'hibernate.hbm2ddl.auto'              : 'create-drop',
+        'dataSource.url'                      : 'jdbc:h2:mem:myDB',
+        'hibernate.cache.region.factory_class': 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+]
+hibernateDatastore = new HibernateDatastore(configuration, CatalogDetail)
+transactionManager = hibernateDatastore.getTransactionManager()
+catalogDetailService = hibernateDatastore.getService(CatalogDetailService)
+
+
+
+//Set tests to rollback
+@Rollback
+void "test criteria builder for getting interview models should return all"() {
+  //test
+}
  
-
- 
-
-# Liquibasehttps://grails-plugins.github.io/grails-database-migration/3.0.x/index.html
-
-## clear liquibase checksums
-
-   `grails dbm-clear-checksum`
-
-## clear liquibase locks
-
- ` grails dbm-release-locks`
-
- 
-
-## ignore checksums in liquibase
-
- ` validCheckSum 'any'`
-
-# GRAILS TYPE Converters
-
-            Convert and check type in controller
-
-            [TypeCheck](http://docs.grails.org/latest/guide/theWebLayer.html#typeConverters)
-
-`param.short(...)`
-`param.byte(...)`
-`param.long(...)`
-`param.double(...)`
-`param.boolean(...)`
-
-# Set system properties
-
-## Now we can invoke the run or bootRun tasks with Gradle:
-
-$ gradle -Dsample.message=cool run
-
-## Or we can execute the run-app command with the grails command:
-
-grails> run-app -Dsample.message=cool
- 
-
-# User Domain reference , when hibernate id is already being used
-
- class UserGroupShare {
-
-    Long userGroupId
-    Long userId
-    String email
-    String encryptedId
-    Boolean revoked = Boolean.FALSE
-    Date dateCreated
-    Date lastUpdated
-   
-    static belongsTo = [userGroup : UserGroup]
-
-    static constraints = {
-        userGroupId unique: 'userId'
-        email nullable: true
-        encryptedId nullable: true
-    }
-
-    static mapping = {
-        //can keep userGroupId column, and create usergroup parent reference without creating new db column
-        //need to use foreign Key reference to save
-        userGroup insertable: false
-        userGroup updateable: false
-    }
-
-    
-
-# Custom JVM args
-
-set jvm args in build.gradle   bootRun{}
-
-jvmArgs = ["-server",
-
-                "-XX:ReservedCodeCacheSize=2g",
-
-                "-XX:NewRatio=3",
-
-                "-XX:ActiveProcessorCount=12",
-
-                "-Xss16m",
-
-                "-XX:+UseConcMarkSweepGC",
-
-                "-XX:+CMSParallelRemarkEnabled",
-
-                "-XX:ConcGCThreads=4",
-
-                "-XX:+AlwaysPreTouch",
-
-                "-XX:+TieredCompilation",
-
-                "-XX:+UseCompressedOops", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005", "-Xmx8g",
-
-        ]
-
-# set remote connection
-
-           
-
-Brandon Paxton > Grails Notes > Picture1.png
-Use runapp then hit debug for remote connection
-
-grailsw dev -Dgrails.AWS_REGION=us-west-2  -Dgrails.AWS_PROFILE=dev run-app --stacktrace -verbose
 
  
