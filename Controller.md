@@ -1,7 +1,8 @@
 ## The GrailsParameterMap
+```groovy
 def paramMap = ["firstName" : "brandon", "lastName": "paxton", "email" : "bpaxton@talentplus.com", "assessmentType": "AO6"]
 def x = new grails.web.servlet.mvc.GrailsParameterMap(paramMap, request)
-
+```
 
 ## Demo Command Object with Validation-*
 ## command object allows you to validate with services
