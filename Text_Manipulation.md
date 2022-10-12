@@ -1,9 +1,9 @@
 # Using messageSource
 
      [i18n Docs](https://docs.grails.org/4.0.1/guide/i18n.html)
-
+```groovy
  messageSource.getMessage('batch.user.registration.confirmation.message', [jobId as String].toArray() , LocaleContextHolder.locale)
-
+```
 
 
 # JSON
