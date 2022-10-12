@@ -1,47 +1,17 @@
-# Frontend manipulation
+# Server Side
 
-### Using messageSource
-[i18n Docs](https://docs.grails.org/4.0.1/guide/i18n.html)
-
+#### GRAILS TYPE Converters
+> Convert and check type in controller
+> [TypeCheck](http://docs.grails.org/latest/guide/theWebLayer.html#typeConverters)
 ```groovy
- messageSource.getMessage('batch.user.registration.confirmation.message', [jobId as String].toArray() , LocaleContextHolder.locale)
+param.short(...)
+param.byte(...)
+param.long(...)
+param.double(...)
+param.boolean(...)
 ```
 
-### Render grails tags to return in controller
-```groovy
-        render  g.select(from: languages, optionKey: "key" , optionValue: "value",  name: "languageChoice",
-        class:"form-control", value: assessmentLanguage)
-```
-
-### save grails tag in variable and render on page 
- ```groovy
- `${yourTag.encodeAsRaw()}`
-```
- > or
- 
-```groovy
-   `${raw(user.description)}`
-```
- 
-
-
-# JSON
-#### Javascript manipulation
-
-```javascript
-var catalogsByType = null;
-<g:applyCodec encodeAs="none">
-    catalogsByType = ${resultCatalogs.catalogsByType as grails.converters.JSON};
-</g:applyCodec>
-
- 
-
-<script>
-
-    var data = ${raw(data)};
-
-</script>
-```
+### JSON
 
 ### JSON Parser Example
 
@@ -89,3 +59,44 @@ def getBackJsobObj = grails.converters.JSON.parse(jsonStr)
 assert getBackJsobObj.markings.leftHindMarkings == 'sock'
 ```
  
+# Frontend manipulation
+#### Using messageSource
+[i18n Docs](https://docs.grails.org/4.0.1/guide/i18n.html)
+
+```groovy
+ messageSource.getMessage('batch.user.registration.confirmation.message', [jobId as String].toArray() , LocaleContextHolder.locale)
+```
+
+#### Render grails tags to return in controller
+```groovy
+        render  g.select(from: languages, optionKey: "key" , optionValue: "value",  name: "languageChoice",
+        class:"form-control", value: assessmentLanguage)
+```
+
+#### save grails tag in variable and render on page 
+ ```groovy
+ `${yourTag.encodeAsRaw()}`
+```
+ > or
+ 
+```groovy
+   `${raw(user.description)}`
+```
+ ### JSON
+##### Javascript manipulation
+
+```javascript
+var catalogsByType = null;
+<g:applyCodec encodeAs="none">
+    catalogsByType = ${resultCatalogs.catalogsByType as grails.converters.JSON};
+</g:applyCodec>
+
+ 
+
+<script>
+
+    var data = ${raw(data)};
+
+</script>
+```
+
