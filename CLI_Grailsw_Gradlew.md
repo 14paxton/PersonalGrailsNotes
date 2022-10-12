@@ -1,6 +1,13 @@
 # Grailsw
-### Liquibasehttps
-[Liquibase grails plugin](//grails-plugins.github.io/grails-database-migration/3.0.x/index.html)
+### Grails
+
+#### Set System Props
+```bash
+    ./grailsw run-app -Dsample.message=cool
+ ```
+  
+### Liquibase
+> [Liquibase grails plugin](//grails-plugins.github.io/grails-database-migration/3.0.x/index.html)
 
 #### clear liquibase checksums
 ```bash
@@ -16,3 +23,11 @@
  ```groovy
    validCheckSum 'any'
  ```
+
+# Gradlew
+
+#### Set system properties
+
+```bash
+ ./gradlew -Dsample.message=cool run
+```
