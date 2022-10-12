@@ -13,15 +13,16 @@
 [My Example](https://github.com/14paxton/Grails4App/blob/task2-create-react-app/app-web/settings.gradle)
 
 1. add to settings.gradle
-
-`      include 'client', 'server'`
+```
+      include 'client', 'server'`
       `rootProject.name = 'app-web'`
       `include ':mod-domain', ":mod-mobile"``
       `project(':mod-domain').projectDir = new File(settingsDir, '../mod-domain')`
       `project(':mod-mobile').projectDir = new File(settingsDir, '../mod-mobile')`
+```
 
 2. add to build.gradle
-
+```groovy
     grails {
     plugins {
         compile project(":mod-domain")
@@ -29,6 +30,7 @@
     }
     }
     compile project(':mod-domain')
+```
 
 #### Custom JVM args
 
