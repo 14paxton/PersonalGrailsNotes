@@ -16,3 +16,32 @@ https://gist.github.com/14paxton/a5382dd3898484bf560dc29e8463409c
 
 ## User Grails Param map and a closure to build HQL
 https://gist.github.com/14paxton/42e595a1bf50e44031b6be6c034003d9
+
+
+# User Domain reference , when hibernate id is already being used
+```groovy
+ class UserGroupShare {
+
+    Long userGroupId
+    Long userId
+    String email
+    String encryptedId
+    Boolean revoked = Boolean.FALSE
+    Date dateCreated
+    Date lastUpdated
+   
+    static belongsTo = [userGroup : UserGroup]
+
+    static constraints = {
+        userGroupId unique: 'userId'
+        email nullable: true
+        encryptedId nullable: true
+    }
+
+    static mapping = {
+        //can keep userGroupId column, and create usergroup parent reference without creating new db column
+        //need to use foreign Key reference to save
+        userGroup insertable: false
+        userGroup updateable: false
+    }
+```
