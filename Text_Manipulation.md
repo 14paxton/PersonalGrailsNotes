@@ -1,9 +1,28 @@
-# Using messageSource
+# Frontend manipulation
+
+### Using messageSource
 [i18n Docs](https://docs.grails.org/4.0.1/guide/i18n.html)
 
 ```groovy
  messageSource.getMessage('batch.user.registration.confirmation.message', [jobId as String].toArray() , LocaleContextHolder.locale)
 ```
+
+### Render grails tags to return in controller
+```groovy
+        render  g.select(from: languages, optionKey: "key" , optionValue: "value",  name: "languageChoice",
+        class:"form-control", value: assessmentLanguage)
+```
+
+### save grails tag in variable and render on page 
+ ```groovy
+ `${yourTag.encodeAsRaw()}`
+```
+ > or
+ 
+```groovy
+   `${raw(user.description)}`
+```
+ 
 
 
 # JSON
