@@ -1,45 +1,48 @@
-- [Config in test](#config-in-test)
-    - [Modify config](#modify-config)
-    - [Get at
-      application](#get-at-application)
-    - [Use db in memory to run
-      tests](#use-db-in-memory-to-run-tests)
-    - [Mocking service and then method call, setting dummy data for
-      the return(put in test
-      method)](#mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method)
-    - [Mocking Service used in a service you are testing(put at
-      beginning of the test
-      class)](#mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class)
-    - [Mocking Method in service you are
-      testing](#mocking-method-in-service-you-are-testing)
-    - [Mocking method in
-      domain](#mocking-method-in-domain)
-    - [Using Test Data from BuildTest
-      plugin](#using-test-data-from-buildtest-plugin)
-        - [Snippet from spock
-          test](#snippet-from-spock-test)
-- [Configurations](#configurations)
-    - [Checking validity of
-      constraints](#checking-validity-of-constraints)
-    - [check if method was called for another
-      service](#check-if-method-was-called-for-another-service)
-    - [check if method was called for same
-      service](#check-if-method-was-called-for-same-service)
-    - [create an
-      exception](#create-an-exception)
-    - [catch exception](#catch-exception)
-    - [modify config during/for
-      test](#modify-config-duringfor-test)
-    - [create a custom manager for a
-      test](#create-a-custom-manager-for-a-test)
-    - [Mocking hibernate used to test methods using where queriers /
-      detached criteria / criteria
-      builder](#mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder)
-    - [Mock return value for service method used in the service you
-      are
-      testing](#mock-return-value-for-service-method-used-in-the-service-you-are-testing)
-    - [Mock a static method call from a
-      domain](#mock-a-static-method-call-from-a-domain)
+-   [Config in test](#config-in-test)
+    -   [Modify config](#modify-config)
+    -   [Get at
+        application](#get-at-application)
+    -   [Use db in memory to run
+        tests](#use-db-in-memory-to-run-tests)
+    -   [Mocking service and then method call, setting dummy data for
+        the return(put in test
+        method)](#mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method)
+    -   [Mocking Service used in a service you are testing(put at
+        beginning of the test
+        class)](#mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class)
+    -   [Mocking Method in service you are
+        testing](#mocking-method-in-service-you-are-testing)
+    -   [Mocking method in
+        domain](#mocking-method-in-domain)
+    -   [Using Test Data from BuildTest
+        plugin](#using-test-data-from-buildtest-plugin)
+        -   [Snippet from spock
+            test](#snippet-from-spock-test)
+-   [Configurations](#configurations)
+    -   [Checking validity of
+        constraints](#checking-validity-of-constraints)
+    -   [check if method was called for another
+        service](#check-if-method-was-called-for-another-service)
+    -   [check if method was called for same
+        service](#check-if-method-was-called-for-same-service)
+    -   [create an
+        exception](#create-an-exception)
+    -   [catch exception](#catch-exception)
+    -   [modify config during/for
+        test](#modify-config-duringfor-test)
+    -   [create a custom manager for a
+        test](#create-a-custom-manager-for-a-test)
+    -   [Mocking hibernate used to test methods using where queriers /
+        detached criteria / criteria
+        builder](#mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder)
+    -   [Mock return value for service method used in the service you
+        are
+        testing](#mock-return-value-for-service-method-used-in-the-service-you-are-testing)
+    -   [Mock a static method call from a
+        domain](#mock-a-static-method-call-from-a-domain)
+-   [Test Snippets](#test-snippets)
+    -   [Test Rest](#test-rest)
+        -   [Grails3](#grails3)
 
 # Config in test
 
@@ -283,3 +286,11 @@ service.springSecurityService = [authentication: [details: currentUser] ]
 ``` groovy
 ClientSetup.metaClass.static.fetchSecurityGroupLabelsByClientSetupId = {Long id, String en -> [secGroupNameLabel : 'secGroupNameLabel', secGroupCodeLabel : 'secGroupCodeLabel']}
 ```
+
+# Test Snippets
+
+## Test Rest
+
+### Grails3
+
+[Controller](https://gist.github.com/14paxton/0d64ab846b4691d8d6f1ccd5ccc63b58)
