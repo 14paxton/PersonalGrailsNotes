@@ -1,47 +1,45 @@
--   [Config in test](#config-in-test)
-    -   [Modify config](#modify-config)
-    -   [Get at
-        application](#get-at-application)
-    -   [Use db in memory to run
-        tests](#use-db-in-memory-to-run-tests)
-    -   [Mocking service and then method call, setting dummy data for
-        the return(put in test
-        method)](#mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method)
-    -   [Mocking Service used in a service you are testing(put at
-        beginning of the test
-        class)](#mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class)
-    -   [Mocking Method in service you are
-        testing](#mocking-method-in-service-you-are-testing)
-    -   [Mocking method in
-        domain](#mocking-method-in-domain)
-    -   [Using Test Data from BuildTest
-        plugin](#using-test-data-from-buildtest-plugin)
-        -   [Snippet from spock
-            test](#snippet-from-spock-test)
-    -   [Different ways to
-        build](#different-ways-to-build)
--   [Configurations](#configurations)
-    -   [Checking validity of
-        constraints](#checking-validity-of-constraints)
-    -   [check if method was called for another
-        service](#check-if-method-was-called-for-another-service)
-    -   [check if method was called for same
-        service](#check-if-method-was-called-for-same-service)
-    -   [create an
-        exception](#create-an-exception)
-    -   [catch exception](#catch-exception)
-    -   [modify config during/for
-        test](#modify-config-duringfor-test)
-    -   [create a custom manager for a
-        test](#create-a-custom-manager-for-a-test)
-    -   [Mocking hibernate used to test methods using where queriers /
-        detached criteria / criteria
-        builder](#mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder)
-    -   [Mock return value for service method used in the service you
-        are
-        testing](#mock-return-value-for-service-method-used-in-the-service-you-are-testing)
-    -   [Mock a static method call from a
-        domain](#mock-a-static-method-call-from-a-domain)
+- [Config in test](#config-in-test)
+    - [Modify config](#modify-config)
+    - [Get at
+      application](#get-at-application)
+    - [Use db in memory to run
+      tests](#use-db-in-memory-to-run-tests)
+    - [Mocking service and then method call, setting dummy data for
+      the return(put in test
+      method)](#mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method)
+    - [Mocking Service used in a service you are testing(put at
+      beginning of the test
+      class)](#mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class)
+    - [Mocking Method in service you are
+      testing](#mocking-method-in-service-you-are-testing)
+    - [Mocking method in
+      domain](#mocking-method-in-domain)
+    - [Using Test Data from BuildTest
+      plugin](#using-test-data-from-buildtest-plugin)
+        - [Snippet from spock
+          test](#snippet-from-spock-test)
+- [Configurations](#configurations)
+    - [Checking validity of
+      constraints](#checking-validity-of-constraints)
+    - [check if method was called for another
+      service](#check-if-method-was-called-for-another-service)
+    - [check if method was called for same
+      service](#check-if-method-was-called-for-same-service)
+    - [create an
+      exception](#create-an-exception)
+    - [catch exception](#catch-exception)
+    - [modify config during/for
+      test](#modify-config-duringfor-test)
+    - [create a custom manager for a
+      test](#create-a-custom-manager-for-a-test)
+    - [Mocking hibernate used to test methods using where queriers /
+      detached criteria / criteria
+      builder](#mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder)
+    - [Mock return value for service method used in the service you
+      are
+      testing](#mock-return-value-for-service-method-used-in-the-service-you-are-testing)
+    - [Mock a static method call from a
+      domain](#mock-a-static-method-call-from-a-domain)
 
 # Config in test
 
@@ -160,7 +158,7 @@ class StatisticsServiceSpec extends Specification implements AutowiredTest, Data
 }
 ```
 
-## Different ways to build
+#### Different ways to build
 
 ``` groovy
 
@@ -228,53 +226,50 @@ def response = thrown(GraphServiceException)
 
 ``` groovy
 
-                                            def managerMap=[:]
-
-                                            RoleGroup.findAll().each {
-                                            def myUser=User.build(clientSetupId: 1, email:
-                                    "${it.name}@mailinator.com", username: "${it.name}@mailinator.com")
-                                    UserRoleGroup.build(user: myUser, roleGroup: it)
-                                    def tokenAuthentication = new TokenAuthentication(decodedJwt(myUser), myUser)
-                                    tokenAuthentication.details = myUser
-                                    authMap[(it.name)] = tokenAuthentication
-                                    managerMap[(myUser.id)] = it.name ==~ /testManager.*/ ? [1,2,3] : []
-                                    }
-
-                                    service.userService = Mock(UserService)
-                                    service.userService.fetchDirectReportIds(_) >> {it ->
-                                    managerMap.get(it[0])
-                                    }
+ def managerMap=[:]
+ RoleGroup.findAll().each {
+ def myUser=User.build(clientSetupId: 1, email:
+ "${it.name}@mailinator.com", username: "${it.name}@mailinator.com")
+ UserRoleGroup.build(user: myUser, roleGroup: it)
+ def tokenAuthentication = new TokenAuthentication(decodedJwt(myUser), myUser)
+ tokenAuthentication.details = myUser
+ authMap[(it.name)] = tokenAuthentication
+ managerMap[(myUser.id)] = it.name ==~ /testManager.*/ ? [1,2,3] : []
+ }
+ service.userService = Mock(UserService)
+ service.userService.fetchDirectReportIds(_) >> {it ->
+ managerMap.get(it[0])
+ }
 ```
 
 ## Mocking hibernate used to test methods using where queriers / detached criteria / criteria builder
 
 ``` groovy
-            @Shared
-            InterviewModelService interviewModelService
+ @Shared
+ InterviewModelService interviewModelService
 
-            @Shared
-            HibernateDatastore hibernateDatastore
+ @Shared
+ HibernateDatastore hibernateDatastore
 
-            @Shared
-            PlatformTransactionManager transactionManager
+ @Shared
+ PlatformTransactionManager transactionManager
 
-            Map configuration = [
-            'hibernate.hbm2ddl.auto' : 'create-drop',
-            'dataSource.url' : 'jdbc:h2:mem:myDB',
-            'hibernate.cache.region.factory_class': 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
-            ]
-            hibernateDatastore = new HibernateDatastore(configuration, CatalogDetail)
-            transactionManager = hibernateDatastore.getTransactionManager()
-            catalogDetailService = hibernateDatastore.getService(CatalogDetailService)
+ Map configuration = [
+ 'hibernate.hbm2ddl.auto' : 'create-drop',
+ 'dataSource.url' : 'jdbc:h2:mem:myDB',
+ 'hibernate.cache.region.factory_class': 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+ ]
+ hibernateDatastore = new HibernateDatastore(configuration, CatalogDetail)
+ transactionManager = hibernateDatastore.getTransactionManager()
+ catalogDetailService = hibernateDatastore.getService(CatalogDetailService)
 
 
-            //Set tests to rollback
+ //Set tests to rollback
 
-            @Rollback
-            void "test criteria builder for getting interview models should return all"() {
-            //test
-            }
-
+ @Rollback
+ void "test criteria builder for getting interview models should return all"() {
+ //test
+ }
 ```
 
 ## Mock return value for service method used in the service you are testing
