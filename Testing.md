@@ -1,47 +1,47 @@
--   [Config in test](#config-in-test){#toc-config-in-test}
-    -   [Modify config](#modify-config){#toc-modify-config}
+-   [Config in test](#config-in-test)
+    -   [Modify config](#modify-config)
     -   [Get at
-        application](#get-at-application){#toc-get-at-application}
+        application](#get-at-application)
     -   [Use db in memory to run
-        tests](#use-db-in-memory-to-run-tests){#toc-use-db-in-memory-to-run-tests}
+        tests](#use-db-in-memory-to-run-tests)
     -   [Mocking service and then method call, setting dummy data for
         the return(put in test
-        method)](#mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method){#toc-mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method}
+        method)](#mocking-service-and-then-method-call-setting-dummy-data-for-the-returnput-in-test-method)
     -   [Mocking Service used in a service you are testing(put at
         beginning of the test
-        class)](#mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class){#toc-mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class}
+        class)](#mocking-service-used-in-a-service-you-are-testingput-at-beginning-of-the-test-class)
     -   [Mocking Method in service you are
-        testing](#mocking-method-in-service-you-are-testing){#toc-mocking-method-in-service-you-are-testing}
+        testing](#mocking-method-in-service-you-are-testing)
     -   [Mocking method in
-        domain](#mocking-method-in-domain){#toc-mocking-method-in-domain}
+        domain](#mocking-method-in-domain)
     -   [Using Test Data from BuildTest
-        plugin](#using-test-data-from-buildtest-plugin){#toc-using-test-data-from-buildtest-plugin}
+        plugin](#using-test-data-from-buildtest-plugin)
         -   [Snippet from spock
-            test](#snippet-from-spock-test){#toc-snippet-from-spock-test}
+            test](#snippet-from-spock-test)
     -   [Different ways to
-        build](#different-ways-to-build){#toc-different-ways-to-build}
--   [Configurations](#configurations){#toc-configurations}
+        build](#different-ways-to-build)
+-   [Configurations](#configurations)
     -   [Checking validity of
-        constraints](#checking-validity-of-constraints){#toc-checking-validity-of-constraints}
+        constraints](#checking-validity-of-constraints)
     -   [check if method was called for another
-        service](#check-if-method-was-called-for-another-service){#toc-check-if-method-was-called-for-another-service}
+        service](#check-if-method-was-called-for-another-service)
     -   [check if method was called for same
-        service](#check-if-method-was-called-for-same-service){#toc-check-if-method-was-called-for-same-service}
+        service](#check-if-method-was-called-for-same-service)
     -   [create an
-        exception](#create-an-exception){#toc-create-an-exception}
-    -   [catch exception](#catch-exception){#toc-catch-exception}
+        exception](#create-an-exception)
+    -   [catch exception](#catch-exception)
     -   [modify config during/for
-        test](#modify-config-duringfor-test){#toc-modify-config-duringfor-test}
+        test](#modify-config-duringfor-test)
     -   [create a custom manager for a
-        test](#create-a-custom-manager-for-a-test){#toc-create-a-custom-manager-for-a-test}
+        test](#create-a-custom-manager-for-a-test)
     -   [Mocking hibernate used to test methods using where queriers /
         detached criteria / criteria
-        builder](#mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder){#toc-mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder}
+        builder](#mocking-hibernate-used-to-test-methods-using-where-queriers-detached-criteria-criteria-builder)
     -   [Mock return value for service method used in the service you
         are
-        testing](#mock-return-value-for-service-method-used-in-the-service-you-are-testing){#toc-mock-return-value-for-service-method-used-in-the-service-you-are-testing}
+        testing](#mock-return-value-for-service-method-used-in-the-service-you-are-testing)
     -   [Mock a static method call from a
-        domain](#mock-a-static-method-call-from-a-domain){#toc-mock-a-static-method-call-from-a-domain}
+        domain](#mock-a-static-method-call-from-a-domain)
 
 # Config in test
 
