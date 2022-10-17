@@ -11,7 +11,8 @@ def x = new grails.web.servlet.mvc.GrailsParameterMap(paramMap, request)
 
 #### Custom Validator for Nested Command objects in a list
 >  creating error code
-  ``` com.talentbank.tbex.SelfServiceIntegration.WSConfigCommand.rest.validator.error.com.talentbank.tbex.SelfServiceIntegration.WSConfigCommand.rest,
+  ```groovy 
+     com.talentbank.tbex.SelfServiceIntegration.WSConfigCommand.rest.validator.error.com.talentbank.tbex.SelfServiceIntegration.WSConfigCommand.rest,
        Object {"rest": "${WSConfigCommand.class}"},
        Property [{0}] of class [{1}] with value [{2}] does not pass custom validation
        
