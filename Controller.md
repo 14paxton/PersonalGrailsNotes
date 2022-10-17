@@ -10,6 +10,17 @@ def x = new grails.web.servlet.mvc.GrailsParameterMap(paramMap, request)
 <a href="https://gist.github.com/14paxton/282d48ed20642c697315e15dffb7df2d"> GRAILSCommandObject </a>
 
 #### Custom Validator for Nested Command objects in a list
+>  creating error code
+  ``` com.talentbank.tbex.SelfServiceIntegration.WSConfigCommand.rest.validator.error.com.talentbank.tbex.SelfServiceIntegration.WSConfigCommand.rest,
+       Object {"rest": "${WSConfigCommand.class}"},
+       Property [{0}] of class [{1}] with value [{2}] does not pass custom validation
+       
+         user.errors.reject(
+        'user.password.doesnotmatch',
+        ['password', 'class User'] as Object[],
+        '[Property [{0}] of class [{1}] does not match confirmation]')
+  ```
+  
 > this forces validate on nested command object, then adds errors to parent errors, only the parent need to be confirmed
 ```groovy
     List<WSConfigCommand> wSConfig
