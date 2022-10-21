@@ -11,12 +11,21 @@
 
 ```groovy 
 @Secured(['ROLE_USER', 'ROLE_ADMIN']) 
-
+```
+```groovy 
 @Secured("hasRole('ROLE_PERMISSION_ACCESS_ASSESSMENTS')") 
- 
+ ```
+ ```groovy 
 @Secured("(hasRole('ROLE_ORDER_SHOW') or hasRole('ROLE_RESULT_SHOW') ) and hasRole('ROLE_PERMISSION_ACCESS_ASSESSMENTS')") 
- 
-@Secured("hasAnyRole('ROLE_ORDER_SHOW', 'ROLE_RESULT_SHOW') and hasRole('ROLE_PERMISSION_ACCESS_ASSESSMENTS')") 
+ ```
+ ```groovy 
+@Secured("hasAnyRole('ROLE_ORDER_SHOW', 'ROLE_RESULT_SHOW') and hasRole('ROLE_PERMISSION_ACCESS_ASSESSMENTS')")
+```
+```groovy
+    @Secured(value = ['permitAll'], httpMethod = 'POST')
+```
+```groovy
+    @Secured(value = ['IS_AUTHENTICATED_ANONYMOUSLY'], httpMethod = 'POST')
 ```
 
 ## controller body
