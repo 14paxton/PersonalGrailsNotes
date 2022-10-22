@@ -1,0 +1,208 @@
+= Grails 3 Project Using A Multi Project Build
+:icons: font
+
+== The Build
+
+This project includes a Grails 3 application named `demoapp` and a
+plugin named `helper`.  The project is configured as a Gradle
+multi-project build.  The top level `settings.gradle` file contains
+an `include` which tells Gradle which projects to include in the build.
+
+[source,groovy]
+.settings.gradle
+----
+include::{projectdir}/settings.gradle[]
+----
+
+A build initiated from the top level project will include all of the
+sub projects.
+
+```
+./gradlew clean compileGroovy
+:clean UP-TO-DATE
+:demoapp:clean
+:helper:clean
+:helper:compileAstJava UP-TO-DATE
+:helper:compileAstGroovy UP-TO-DATE
+:helper:processAstResources UP-TO-DATE
+:helper:astClasses UP-TO-DATE
+:helper:compileJava UP-TO-DATE
+:helper:configScript
+:helper:compileGroovy
+:helper:copyAstClasses UP-TO-DATE
+:helper:copyAssets UP-TO-DATE
+:helper:copyCommands UP-TO-DATE
+:helper:copyTemplates UP-TO-DATE
+:helper:processResources
+:helper:classes
+:helper:compileTestJava UP-TO-DATE
+:helper:compileTestGroovy UP-TO-DATE
+:helper:processTestResources UP-TO-DATE
+:helper:testClasses UP-TO-DATE
+:helper:compileIntegrationTestJava UP-TO-DATE
+:helper:compileIntegrationTestGroovy UP-TO-DATE
+:helper:compileWebappGroovyPages UP-TO-DATE
+:helper:compileGroovyPages
+:helper:jar
+:demoapp:compileJava UP-TO-DATE
+:demoapp:compileGroovy
+
+BUILD SUCCESSFUL
+
+Total time: 14.676 secs
+```
+
+Build tasks in subprojects may be invoked directly from the top
+level build.
+
+```
+./gradlew :helper:compileGroovy
+:helper:compileAstJava UP-TO-DATE
+:helper:compileAstGroovy UP-TO-DATE
+:helper:processAstResources UP-TO-DATE
+:helper:astClasses UP-TO-DATE
+:helper:compileJava UP-TO-DATE
+:helper:configScript
+:helper:compileGroovy
+
+BUILD SUCCESSFUL
+
+Total time: 10.428 secs
+```
+
+Builds may also be executed from within the subproject folders.
+
+```
+$ cd helper/
+$ ./gradlew compileGroovy
+:helper:compileAstJava UP-TO-DATE
+:helper:compileAstGroovy UP-TO-DATE
+:helper:processAstResources UP-TO-DATE
+:helper:astClasses UP-TO-DATE
+:helper:compileJava UP-TO-DATE
+:helper:configScript
+:helper:compileGroovy
+
+BUILD SUCCESSFUL
+
+Total time: 11.691 secs
+```
+
+=== Dependencies Across Projects
+
+The `demoapp` project expresses a compile time dependency on
+the `helper` project in `demoapp/build.gradle`.
+
+[source,groovy]
+.demoapp/build.gradle
+----
+include::{projectdir}/demoapp/build.gradle[tags=dependencies_begin;helper_dependency;dependencies_end]
+----
+
+== The helper Plugin
+
+=== Files Of Interest
+- `helper/src/main/groovy/helper/MagicService.groovy`
+- `helper/src/main/groovy/helper/StringExtension.groovy`
+- `helper/src/main/resources/META-INF/services/org.codehaus.groovy.runtime.ExtensionModule`
+
+The `helper` plugin provides both compile time and runtime method extensions
+to applications or other plugins which depend on the plugin.
+`MagicService` is a trait which defines behavior that will be
+added to `Service` artifacts.  `StringExtension` defines
+extension methods which will be added to the `java.lang.String`
+class.
+
+=== MagicService
+
+The `MagicService` trait defines behavior that will be added to
+all `Service` artifacts.
+
+[source,groovy]
+.helper/src/main/groovy/helper/MagicService.groovy
+----
+include::{projectdir}/helper/src/main/groovy/helper/MagicService.groovy[]
+----
+<1> The `@Enhances` annotation expresses which artifact type(s) this trait will be applied to.
+<2> All of the methods in this trait will be added to all Service artifacts.
+
+Since this trait is applied to service artifacts at compile time, the
+behavior described in `MagicService` will only be added to services
+which were compiled with a dependency on the `helper` plugin.  This
+means that if an application uses a plugin that does not depend on
+the `helper` plugin, services provided by that plugin will not be
+enhanced with `MagicService`.
+
+=== StringExtension
+
+The `StringExtension` class defines extension methods which
+will be added to `java.lang.String`.
+
+[source,groovy]
+.helper/src/main/groovy/helper/StringExtension.groovy
+----
+include::{projectdir}/helper/src/main/groovy/helper/StringExtension.groovy[]
+----
+
+The extension methods defined in the `StringExtension` class
+are added to `java.lang.String` at runtime.  The descriptor
+at `helper/src/main/resources/META-INF/services/org.codehaus.groovy.runtime.ExtensionModule`
+is necessary in order to inform the Groovy runtime about the extension
+class.
+
+[source]
+.helper/src/main/resources/META-INF/services/org.codehaus.groovy.runtime.ExtensionModule
+----
+include::{projectdir}/helper/src/main/resources/META-INF/services/org.codehaus.groovy.runtime.ExtensionModule[]
+----
+
+The `extensionClasses` property defines a comma separated list of
+class names allowing a plugin to provide any number
+of extension classes.
+
+== The demoapp Application
+
+=== Files Of Interest
+- `demoapp/grails-app/services/demoapp/WidgetService.groovy`
+- `demoapp/grails-app/controllers/demoapp/DemoController.groovy`
+- `demoapp/src/test/groovy/demoapp/WidgetServiceSpec.groovy`
+- `demoapp/src/test/groovy/demoapp/DemoControllerSpec.groovy`
+
+=== WidgetService
+
+The `WidgetService` class is empty.
+
+[source,groovy]
+.demoapp/grails-app/services/demoapp/WidgetService.groovy
+----
+include::{projectdir}/demoapp/grails-app/services/demoapp/WidgetService.groovy[]
+----
+
+The `WidgetServiceSpec` asserts that the `MagicService` trait
+has been applied to `WidgetService`.
+
+[source,groovy]
+.demoapp/src/test/groovy/demoapp/WidgetServiceSpec.groovy
+----
+include::{projectdir}/demoapp/src/test/groovy/demoapp/WidgetServiceSpec.groovy[]
+----
+
+=== The DemoController
+
+The `DemoController` is taking advantage of methods defined in the
+extension module provided by the `helper` plugin.
+
+[source,groovy]
+.demoapp/grails-app/controllers/demoapp/DemoController.groovy
+----
+include::{projectdir}/demoapp/grails-app/controllers/demoapp/DemoController.groovy[]
+----
+
+`DemoControllerSpec` asserts that the extension methods behave
+as expected.
+
+[source,groovy]
+.demoapp/src/test/groovy/demoapp/DemoControllerSpec.groovy
+----
+include::{projectdir}/demoapp/src/test/groovy/demoapp/DemoControllerSpec.groovy[]
+----

@@ -1,0 +1,5 @@
+package demoapp
+
+class WidgetService {
+
+}

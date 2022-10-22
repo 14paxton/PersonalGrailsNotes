@@ -1,0 +1,2 @@
+include 'demoapp', 'helper'
+rootProject.name = 'multiproject'

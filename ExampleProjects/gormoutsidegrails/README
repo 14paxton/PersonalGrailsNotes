@@ -1,0 +1,9 @@
+This project contains a simple demonstration of using GORM
+outside of the Grails framework.  See the following:
+
+- src/main/groovy/gormdemo/Person.groovy
+- src/main/groovy/gormdemo/PersonDemo.groovy
+
+To run the PersonDemo class invoke the "run" Gradle task:
+
+    ./gradlew run

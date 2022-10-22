@@ -1,0 +1,3 @@
+moduleName=string-magic
+moduleVersion=1.0
+extensionClasses=helper.StringExtension
