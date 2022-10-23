@@ -92,9 +92,20 @@ AssessmentOrderService assessmentOrderService
 ## Mocking Method in service you are testing
 
 ``` groovy
+ @Shared
+    GroupCompareJoinUserGroupService groupCompareJoinUserGroupService
 
-   [service/controller/domain].metaclass.[method] = {[arguments] -> [what to return]}
-   
+setupSpec(){
+        mockDomain GroupCompareJoinUserGroup
+
+}
+
+ def "some test"(){
+    service.groupCompareJoinUserGroupService = Mock(GroupCompareJoinUserGroupService)
+        service.groupCompareJoinUserGroupService.fetchAssociatedAssessments(_ as GroupCompare, true) >> {groupCompare, removeRelationships -> groupCompareJoinUserGroupService.fetchAssociatedAssessments(groupCompare , true)}
+
+    }
+  
 ```
 
 ## Mocking method in domain
