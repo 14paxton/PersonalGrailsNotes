@@ -10,7 +10,54 @@
     -   [ignore checksums in
         liquibase](#ignore-checksums-in-liquibase){#toc-ignore-checksums-in-liquibase}
 
-# Grails
+# Grails Command Line
+
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Grails Command</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Gradle Task</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">assemble</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">run-app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bootRun</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">test-app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">check</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">test-app --unit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">test-app --integration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integrationTest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">war</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">assemble</p></td>
+</tr>
+</tbody>
+</table>
 
 ## Set System Props
 
