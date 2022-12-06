@@ -1,4 +1,5 @@
 # Binding
+## [Groovy Examples](https://github.com/14paxton/GroovyNotes/wiki/MetaProgramming.md#objects)
 ```groovy
 domain.properties = newMap as BindingResult
 ```
