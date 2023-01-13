@@ -172,6 +172,39 @@ class StatisticsServiceSpec extends Specification implements AutowiredTest, Data
 }
 ```
 
+- config file test/resources/TestDataConfig
+```java
+import com.talentbank.core.ClientSetup
+
+import java.util.concurrent.ThreadLocalRandom
+
+//config file for test data plugin
+testDataConfig {
+    sampleData {
+        unitAdditionalBuild = ['com.talentbank.core.assessmentOrder.AssessmentOrder': [com.talentbank.core.ClientSetup]]
+
+        'com.talentbank.core.ClientSetup' {
+            //work around for unique constraints
+            def i = 55
+            clientId = { -> ThreadLocalRandom.current().nextLong(100000) }
+            companyCode = { -> "company${i}" }
+            clientName = { -> "clientName${i++}" }
+        }
+
+        'com.talentbank.core.User' {
+            def i = 55
+            username = { -> "email${i++}@mailinator.com" }
+            email = { -> "email${i}@mailinator.com" }
+        }
+
+        'com.talentbank.core.assessmentOrder.AssessmentOrder' {
+            clientSetup = { -> ClientSetup.build() }
+        }
+    }
+}
+
+```
+
 #### Different ways to build
 
 ``` groovy
