@@ -1,12 +1,13 @@
 # Transactions
- > An instance of TransactionStatus is available by default in Grails transactional service methods.
-  > the keys in the Map must correspond to properties
-  > of org.springframework.transaction.support.DefaultTransactionDefinition
+ > An instance of ```TransactionStatus``` is available by default in Grails transactional service methods.
+ > the keys in the Map must correspond to properties
+ > of org.springframework.transaction.support.DefaultTransactionDefinition
 
 ```java
      Account.withTransaction([propagationBehavior: TransactionDefinition.PROPAGATION_REQUIRES_NEW,isolationLevel: TransactionDefinition.ISOLATION_REPEATABLE_READ]) {
    ...
 }
+
 ```
                         
 ## [Using TransactionStatus in a Service](https://gist.github.com/14paxton/a212d86552b05b95ef91ee444197fd4e)
