@@ -13,9 +13,12 @@
 ## [Using TransactionStatus in a Service](https://gist.github.com/14paxton/a212d86552b05b95ef91ee444197fd4e)
 
 ## Resources
-- https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#transaction
-- https://docs.grails.org/latest/guide/services.html#transactionsRollbackAndTheSession
-- http://gorm.grails.org/6.0.x/hibernate/manual/index.html#programmaticTransactions
-- [Interface TransactionStatus](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/TransactionStatus.html)
+### Articles
+- [Transaction Management](https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#transaction)
+### Grails Docs
+- [Transactions Rollback and the Session](https://docs.grails.org/latest/guide/services.html#transactionsRollbackAndTheSession)
+- [GORM Programmatic Transactions]http://gorm.grails.org/6.0.x/hibernate/manual/index.html#programmaticTransactions
+### Java Docs
+- [Spring Interface TransactionStatus](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/TransactionStatus.html)
 - [Spring Interface SavepointManager](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/SavepointManager.html)
 
