@@ -17,7 +17,7 @@
 - [Transaction Management](https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#transaction)
 ### Grails Docs
 - [Transactions Rollback and the Session](https://docs.grails.org/latest/guide/services.html#transactionsRollbackAndTheSession)
-- [GORM Programmatic Transactions]http://gorm.grails.org/6.0.x/hibernate/manual/index.html#programmaticTransactions
+- [GORM Programmatic Transactions](http://gorm.grails.org/6.0.x/hibernate/manual/index.html#programmaticTransactions)
 ### Java Docs
 - [Spring Interface TransactionStatus](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/TransactionStatus.html)
 - [Spring Interface SavepointManager](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/SavepointManager.html)
