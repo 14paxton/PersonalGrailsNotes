@@ -9,8 +9,8 @@
 }
 
 ```
-                        
-## [Using TransactionStatus in a Service](https://gist.github.com/14paxton/a212d86552b05b95ef91ee444197fd4e)
+## Personal Use Case                       
+- [Using TransactionStatus in a Service](https://gist.github.com/14paxton/a212d86552b05b95ef91ee444197fd4e)
 
 ## Resources
 ### Articles
