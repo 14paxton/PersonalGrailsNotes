@@ -1,3 +1,34 @@
+---
+title:        GORM_WhereQueris
+permalink:    PersonalGrailsNotes/GORM_WhereQueris
+category:     PersonalGrailsNotes
+parent:       PersonalGrailsNotes
+layout:       default
+has_children: false
+share:        true
+shortRepo:
+  - personalgrailsnotes
+  - default
+---
+
+
+<br/>
+
+<details markdown="block">
+<summary>
+Table of contents
+</summary>
+{: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+<br/>
+
+***
+
+<br/>
+
 # Altering fetch
 
 ```groovy
@@ -73,20 +104,20 @@ def results = query.list()
 # ARGS Map , list of args that can be passed i.e. findall([sort: ), count(), ect
 
 ```groovy
-public static final String ARGUMENT_FETCH_SIZE = "fetchSize";
-public static final String ARGUMENT_TIMEOUT = "timeout";
-public static final String ARGUMENT_READ_ONLY = "readOnly";
-public static final String ARGUMENT_FLUSH_MODE = "flushMode";
-public static final String ARGUMENT_MAX = "max";
-public static final String ARGUMENT_OFFSET = "offset";
-public static final String ARGUMENT_ORDER = "order";
-public static final String ARGUMENT_SORT = "sort";
-public static final String ORDER_DESC = "desc";
-public static final String ORDER_ASC = "asc";
-public static final String ARGUMENT_FETCH = "fetch";
-public static final String ARGUMENT_IGNORE_CASE = "ignoreCase";
-public static final String ARGUMENT_CACHE = "cache";
-public static final String ARGUMENT_LOCK = "lock";
+public static final String ARGUMENT_FETCH_SIZE = "fetchSize"
+public static final String ARGUMENT_TIMEOUT = "timeout"
+public static final String ARGUMENT_READ_ONLY = "readOnly"
+public static final String ARGUMENT_FLUSH_MODE = "flushMode"
+public static final String ARGUMENT_MAX = "max"
+public static final String ARGUMENT_OFFSET = "offset"
+public static final String ARGUMENT_ORDER = "order"
+public static final String ARGUMENT_SORT = "sort"
+public static final String ORDER_DESC = "desc"
+public static final String ORDER_ASC = "asc"
+public static final String ARGUMENT_FETCH = "fetch"
+public static final String ARGUMENT_IGNORE_CASE = "ignoreCase"
+public static final String ARGUMENT_CACHE = "cache"
+public static final String ARGUMENT_LOCK = "lock"
 ```
 
 # CriteriaBuilder
@@ -174,20 +205,20 @@ TextString.where {
               //subquery find users with managers whose name is like the search string
 //query use list from subquery to find all users and create map to match filtered users search
 def queryByManagerName(String searchString, List<Long> filteredUsers, sort, order, _clientSetupId,
-        statusFilters, unassignedManagerFilter, unassignedAssessmentFilter) {
+                       statusFilters, unassignedManagerFilter, unassignedAssessmentFilter) {
 
     def (firstNameSearch, lastNameSearch, rest) = searchString?.tokenize()
     def stringToRegex = { string -> string ? "^${string}.*" : null }
 
-    
+
     def managerQuery = UserRelationship.whereAny {
         manager {
             firstName ==~ ~/${stringToRegex(searchString)}/ ||
-            lastName ==~ ~/${stringToRegex(searchString)}/
+                    lastName ==~ ~/${stringToRegex(searchString)}/
         }
         manager {
             firstName ==~ ~/${stringToRegex(firstNameSearch)}/ &&
-            lastName ==~ ~/${stringToRegex(lastNameSearch)}/
+                    lastName ==~ ~/${stringToRegex(lastNameSearch)}/
         }
         if (filteredUsers) {
             not { 'in'('user.id', filteredUsers.collect { (Long) it }) }
@@ -241,11 +272,11 @@ def queryByManagerName(String searchString, List<Long> filteredUsers, sort, orde
 
 
     detachedUserQuery.sort(sort, order)
-                     .collect {
-                         [id: it[0], username: it[1], clientSetupId: it[2], email: it[3], firstName:
-                                 it[4], lastName: it[5], userMetadata:
-                                 it[6], lastLogin: it[7], pictureUrl: it[8]]
-                     }
+            .collect {
+                [id                      : it[0], username: it[1], clientSetupId: it[2], email: it[3], firstName:
+                        it[4], lastName  : it[5], userMetadata:
+                         it[6], lastLogin: it[7], pictureUrl: it[8]]
+            }
 
 }
 
@@ -262,12 +293,12 @@ def stringToRegex = { string -> string ? "^${string}.*" : null }
 DetachedCriteria<UserRelationship> managerQuery = UserRelationship.where {
     manager {
         firstName ==~ ~/${stringToRegex(searchString)}/ ||
-        lastName ==~ ~/${stringToRegex(searchString)}/
+                lastName ==~ ~/${stringToRegex(searchString)}/
     } ||
-    manager {
-        firstName ==~ ~/${stringToRegex(firstNameSearch)}/
-        lastName ==~ ~/${stringToRegex(lastNameSearch)}/
-    }
+            manager {
+                firstName ==~ ~/${stringToRegex(firstNameSearch)}/
+                lastName ==~ ~/${stringToRegex(lastNameSearch)}/
+            }
     if (filteredUsers) {
         not { 'in'('user.id', filteredUsers.collect { (Long) it }) }
     }

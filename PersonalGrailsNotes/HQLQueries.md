@@ -1,4 +1,36 @@
+---
+title:        HQLQueries
+permalink:    PersonalGrailsNotes/HQLQueries
+category:     PersonalGrailsNotes
+parent:       PersonalGrailsNotes
+layout:       default
+has_children: false
+share:        true
+shortRepo:
+  - personalgrailsnotes
+  - default
+---
+
+
+<br/>
+
+<details markdown="block">
+<summary>
+Table of contents
+</summary>
+{: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+<br/>
+
+***
+
+<br/>
+
 # HQL query examples-
+
 ## SELECT DISTINCT mag FROM Magazine mag
 
     JOIN mag.articles art
@@ -29,8 +61,9 @@
 
     def groups = UserGroup.executeQuery(query , [userId : principalUser?.id, type: UserGroupType.RESULTGROUP])
 
-##  -HQL created using session-
-### -Full Example - [Full dynamic HQL, with QueryImpl object ](https://gist.github.com/14paxton/0ed8e82644cd661dc8c9fc0d4b8c2009) 
+## -HQL created using session-
+
+### -Full Example - [Full dynamic HQL, with QueryImpl object ](https://gist.github.com/14paxton/0ed8e82644cd661dc8c9fc0d4b8c2009)
 
                User.withSession{ uSession ->
                def q =    uSession.createQuery($/SELECT DISTINCT new com.talentbank.core.UserMap(user.id, 
@@ -89,8 +122,7 @@
                          groovySql.rows(query, 0, 15)
                          }
 
-
-## -pagination server side with PagedListHolder Object- 
+## -pagination server side with PagedListHolder Object-
 
         def queryResults = userDataService.searchForUsersWhereNameOrEmailLike(searchString)
         def pages = new PagedListHolder(queryResults)

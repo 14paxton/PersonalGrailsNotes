@@ -1,20 +1,51 @@
--   [Server Side](#server-side)
-    -   [GRAILS TYPE
-        Converters](#grails-type-converters)
-    -   [JSON](#json)
-        -   [JSON Parser
-            Example](#json-parser-example)
--   [Frontend
-    manipulation](#frontend-manipulation)
-    -   [Using
-        messageSource](#using-messagesource)
-    -   [Render grails tags to return in
-        controller](#render-grails-tags-to-return-in-controller)
-    -   [save grails tag in variable and render on
-        page](#save-grails-tag-in-variable-and-render-on-page)
-    -   [JSON](#json-1)
-        -   [Javascript
-            manipulation](#javascript-manipulation)
+---
+title:        Text_Manipulation
+permalink:    PersonalGrailsNotes/Text_Manipulation
+category:     PersonalGrailsNotes
+parent:       PersonalGrailsNotes
+layout:       default
+has_children: false
+share:        true
+shortRepo:
+  - personalgrailsnotes
+  - default
+---
+
+
+<br/>
+
+<details markdown="block">
+<summary>
+Table of contents
+</summary>
+{: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+<br/>
+
+***
+
+<br/>
+
+- [Server Side](#server-side)
+    - [GRAILS TYPE
+      Converters](#grails-type-converters)
+    - [JSON](#json)
+        - [JSON Parser
+          Example](#json-parser-example)
+- [Frontend
+  manipulation](#frontend-manipulation)
+    - [Using
+      messageSource](#using-messagesource)
+    - [Render grails tags to return in
+      controller](#render-grails-tags-to-return-in-controller)
+    - [save grails tag in variable and render on
+      page](#save-grails-tag-in-variable-and-render-on-page)
+    - [JSON](#json-1)
+        - [Javascript
+          manipulation](#javascript-manipulation)
 
 # Server Side
 

@@ -1,3 +1,34 @@
+---
+title:        Testing
+permalink:    PersonalGrailsNotes/Testing
+category:     PersonalGrailsNotes
+parent:       PersonalGrailsNotes
+layout:       default
+has_children: false
+share:        true
+shortRepo:
+  - personalgrailsnotes
+  - default
+---
+
+
+<br/>
+
+<details markdown="block">
+<summary>
+Table of contents
+</summary>
+{: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+<br/>
+
+***
+
+<br/>
+
 - [Config in test](#config-in-test)
     - [Modify config](#modify-config)
     - [Get at
@@ -173,35 +204,36 @@ class StatisticsServiceSpec extends Specification implements AutowiredTest, Data
 ```
 
 - config file test/resources/TestDataConfig
+
 ```java
 import com.talentbank.core.ClientSetup
 
 import java.util.concurrent.ThreadLocalRandom
 
 //config file for test data plugin
-testDataConfig {
-    sampleData {
-        unitAdditionalBuild = ['com.talentbank.core.assessmentOrder.AssessmentOrder': [com.talentbank.core.ClientSetup]]
+testDataConfig{
+        sampleData{
+        unitAdditionalBuild=['com.talentbank.core.assessmentOrder.AssessmentOrder':[com.talentbank.core.ClientSetup]]
 
-        'com.talentbank.core.ClientSetup' {
-            //work around for unique constraints
-            def i = 55
-            clientId = { -> ThreadLocalRandom.current().nextLong(100000) }
-            companyCode = { -> "company${i}" }
-            clientName = { -> "clientName${i++}" }
+        'com.talentbank.core.ClientSetup'{
+        //work around for unique constraints
+        def i=55
+        clientId={->ThreadLocalRandom.current().nextLong(100000)}
+        companyCode={->"company${i}"}
+        clientName={->"clientName${i++}"}
         }
 
-        'com.talentbank.core.User' {
-            def i = 55
-            username = { -> "email${i++}@mailinator.com" }
-            email = { -> "email${i}@mailinator.com" }
+        'com.talentbank.core.User'{
+        def i=55
+        username={->"email${i++}@mailinator.com"}
+        email={->"email${i}@mailinator.com"}
         }
 
-        'com.talentbank.core.assessmentOrder.AssessmentOrder' {
-            clientSetup = { -> ClientSetup.build() }
+        'com.talentbank.core.assessmentOrder.AssessmentOrder'{
+        clientSetup={->ClientSetup.build()}
         }
-    }
-}
+        }
+        }
 
 ```
 

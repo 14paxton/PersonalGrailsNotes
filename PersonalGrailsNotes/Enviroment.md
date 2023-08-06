@@ -1,3 +1,34 @@
+---
+title:        Enviroment
+permalink:    PersonalGrailsNotes/Enviroment
+category:     PersonalGrailsNotes
+parent:       PersonalGrailsNotes
+layout:       default
+has_children: false
+share:        true
+shortRepo:
+  - personalgrailsnotes
+  - default
+---
+
+
+<br/>
+
+<details markdown="block">
+<summary>
+Table of contents
+</summary>
+{: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+<br/>
+
+***
+
+<br/>
+
 # How To Check If Environment is Test, Development, or Production in Grails
 
 [Reference](http://grails.asia/how-to-check-if-environment-is-test-development-or-production-in-grails)
@@ -15,13 +46,11 @@ class BootStrap {
 
             // insert Development environment specific code here 
 
-        }
-        else if (Environment.current == Environment.TEST) {
+        } else if (Environment.current == Environment.TEST) {
 
             // insert Test environment specific code here 
 
-        }
-        else if (Environment.current == Environment.PRODUCTION) {
+        } else if (Environment.current == Environment.PRODUCTION) {
 
             // insert Production environment specific code here 
 
@@ -35,33 +64,29 @@ class BootStrap {
 ## Controller
 
 ```groovy 
-import grails.util.Environment 
+import grails.util.Environment
 
-class SomeController { 
+class SomeController {
 
-    def someAction() {  
+    def someAction() {
 
-        if (Environment.current == Environment.DEVELOPMENT) { 
+        if (Environment.current == Environment.DEVELOPMENT) {
 
             // insert Development environment specific code here 
 
-        } else  
-
-        if (Environment.current == Environment.TEST) { 
+        } else if (Environment.current == Environment.TEST) {
 
             // insert Test environment specific code here 
 
-        } else  
-
-        if (Environment.current == Environment.PRODUCTION) { 
+        } else if (Environment.current == Environment.PRODUCTION) {
 
             // insert Production environment specific code here 
 
-        } 
+        }
 
-        render "Environment is ${Environment.current}" 
+        render "Environment is ${Environment.current}"
 
-    } 
+    }
 
 } 
 ```

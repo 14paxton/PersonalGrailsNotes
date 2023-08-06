@@ -1,0 +1,23 @@
+---
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+    branches:
+      - "master"
+name: Update Wiki
+jobs:
+  udpate-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Wiki Sync
+        uses: LillyWho/ghaction-wiki-sync-custom@v1.0
+        with:
+          username: 14paxton
+          access_token: $
+          wiki_folder: $
+          commit_message: "wikisync"
+          commit_username: "14paxton"
+          commit_email:    "26972590+14paxton@users.noreply.github.com "

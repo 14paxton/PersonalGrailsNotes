@@ -1,34 +1,65 @@
+---
+title:        HQLComplexQueries
+permalink:    PersonalGrailsNotes/HQLComplexQueries
+category:     PersonalGrailsNotes
+parent:       PersonalGrailsNotes
+layout:       default
+has_children: false
+share:        true
+shortRepo:
+  - personalgrailsnotes
+  - default
+---
+
+
+<br/>
+
+<details markdown="block">
+<summary>
+Table of contents
+</summary>
+{: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+<br/>
+
+***
+
+<br/>
+
 # Intersect
 
 ```sql
 SELECT *
 FROM LAB_TEST_SERVICES_POJO lts
 WHERE EXISTS
-(SELECT lsm.inttestid
-FROM LAB_SPECIMEN_MAPPING lsm
-WHERE lsm.status = 1
-AND lts.inttestid = lsm.inttestid)
-AND EXISTS
-(SELECT ltl.inttestid
-FROM LAB_TEST_LOCATION ltl
-WHERE ltl.status = 1
-AND lts.inttestid = ltl.inttestid)
+    (SELECT lsm.inttestid
+     FROM LAB_SPECIMEN_MAPPING lsm
+     WHERE lsm.status = 1
+       AND lts.inttestid = lsm.inttestid)
+  AND EXISTS
+    (SELECT ltl.inttestid
+     FROM LAB_TEST_LOCATION ltl
+     WHERE ltl.status = 1
+       AND lts.inttestid = ltl.inttestid)
 ```
 
 ## join same object to query against 2 lists
 
 ```sql
-select o from Object as o
-join o.otherObjects as otherObject
-where
-otherObject in :allowedotherobjects
-and otherObject not in :excludedotherobjects
+select o
+from Object as o
+         join o.otherObjects as otherObject
+where otherObject in :allowedotherobjects
+  and otherObject not in :excludedotherobjects
 ```
 
 ## determine length diff of a group concat
 
 ```sql
-(CHAR_LENGTH(GROUP_CONCAT(CONCAT(user.id, manager.id))) - CHAR_LENGTH(REPLACE(GROUP_CONCAT(CONCAT(user.id, manager.id)), ',', '' )))
+(CHAR_LENGTH (GROUP_CONCAT(CONCAT(user.id, manager.id))) - CHAR_LENGTH (REPLACE(GROUP_CONCAT(CONCAT(user.id, manager.id)), ',', '' )))
 ```
 
 # EXAMPLE large query with teary / multi join/ and JSON extractor
@@ -68,8 +99,8 @@ ON sm.id = (CASE WHEN im.source = ' TBFIVE ' THEN (SELECT s FROM ScoringModel s 
 WHERE USER.clientSetupId = ${clientSetupId}
   AND USER.id IN (${searchStrings?.lastName ? findAllIdsByFirstNameAndLastName(searchStrings.firstName.toString()
     , searchStrings.lastName.toString())*.getId().join(', ')
-  
-  
+
+
 ```
 
 > calling method
@@ -161,11 +192,13 @@ WHERE USER.clientSetupId = 2000
 
 ```sql
 SELECT LENGTH(CONCAT(FUNCTION('GROUP_CONCAT', ',')))
-                         From User user
-                         LEFT OUTER JOIN UserRelationship ur with ur.user.id = user.id or ur.manager.id = user.id
-                         left OUTER JOIN User manager with manager.id = ur.manager.id
-                         where user.clientSetupId = 2000
-                         group by user.id, manager.id
+From User user
+                         LEFT OUTER JOIN UserRelationship ur
+with ur.user.id = user.id or ur.manager.id = user.id
+    left OUTER JOIN User manager
+with manager.id = ur.manager.id
+where user.clientSetupId = 2000
+group by user.id, manager.id
 ```
 
 ## get groupings where there may be nulls
